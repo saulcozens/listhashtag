@@ -15,7 +15,7 @@ parameteres in on the request
   http://yourapplicationname.appspot.com/<username>/<listname>/<comma separated list of hashtags>/<id of the last tweet checked>
 
 you will return a (very) simple JSON struture in return:
-  [matched, '199264308323037184']
+  [true, '199264308323037184']
   
 If hosted on the Google App Engine, this script will share its rate limit allocation with 
 many other GAE apps. So you will see a high proportion of twitter API failures.  I will 
