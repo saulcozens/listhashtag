@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Twitter List HashTag Search Service</title>
+</head>
+<body>
+<h1>Twitter List HashTag Search Service</h1>
+<h2>Checking for hashtags on your twitter lists</h2> 
+<p>Have you ever wanted to know whether someone on one of your Twitter lists has used a specific hashtag recently?  No? Well I did. So I created this webservice to tell me.</p>
+<p>I use this service to drive Arduino projects that trigger an event (like a door opening, a light flashing or a siren going off) whenever someone I know uses a given hashtag.<p>
+<p>For example, my friend <a href='http://twitter.com/yorkhannah'>@yorkhannah</a> want to train her colleague to refrain from making <a href="http://www.amusinghannah.com/2012/04/27/bad-racist/">innappropriate comments</a> in the office.  I have linked an Arduino to an air freshener so that it lets off a cloud of pungent pine perfume when she (or one of her list of allowed activators) tweet the phrase #racismstinks.</p>
+<p>I created the service to be reasonbly generic, so it will take any twitter screename/list combination on the url along with a comma separated list of hashtags and return a simple true/false result. The service also returns the id of the last tweet checked so that the calling Arduino (or other app) can keep track of what tweets have already been searched. This id can be include on the request url next time to prevent repeated checking the same tweets.</p>
+<p>The url format is:
+<code>http://listhashtag.appspot.com/<i>screen_name</i>/<i>list_name</i>/<i>hashtag[,hashtag]</i>/<i>[since_id]</i></code><br />
+for example:
+<code>http://listhashtag.appspot.com/yorkhannah/badracistlist/badracist,racismstinks</code> for the first call, which might return<br />
+<code>[True,'200593656258887680']</code> as a result<br />
+then you would call
+<code>http://listhashtag.appspot.com/yorkhannah/badracistlist/badracist,racismstinks/200593656258887680</code> at some point later<br />
+</p>
+<p>Putting all of the Twitter API stuff in this webservice makes it really easy for a simple app (like an Arduino program) to do something that might otherwise require alsorts of messing about with OAuth and SSL libraries and such.  Now it's just a http GET. Pretty natty huh?<p>
+<h2>Rate limits</h2>
+<p>There is a minor problem though. Twitter rate limits all anonymous API requests by the source IP address and as this service is running on the Google App Engine it shares the rate limit with all other Google App Engine apps.  So you are welcome to use this service anonymously, but don't be surprised when you get API rate limit errors.</p>
+<p>If you want to use this service in anger, you should <a href="/oauth/twitter/login">authorise it to use your Twitter account</a>. It will then be able to use YOUR API allocation for any requests to your lists. It only gets permission to read your status feed so it can't publish tweets on your behalf (I hate apps that do that, don't you?). But still be aware, it will use some of the same allocation that your normal Twitter clients (Tweetdeck, Tweetbot, etc.) use, so if you have a heavy load application you might want to create a separate Twitter account and authorise this service to use that instead.</p>
+<h2>Feedback and contributions</h2>
+<p>If you use this service for something interesting, <a href='mailto:listhashtag@saulcozens.co.uk'>let me know</a>. If you want to reuse or improve the code, then head over to <a href='https://github.com/saulcozens/listhashtag'>GitHub</a>. If you like it so much you want to pay me some cash - give it to a <a href="http://www.openrightsgroup.org/donate/">good</a> <a href="http://youngrewiredstate.org/">charity</a> instead - I do this stuff for fun and I've got a job, I don't need the money.</p>
+<p>Enjoy!<br />Saul</p>
+</body>
+</html>
+
+
+
