@@ -2,8 +2,8 @@
 Thsi is a modified version of @tav's tweetapp library https://github.com/tav/tweetapp.
 Huge props to him for writing it. I've crucified it to do what I wanted and not really made it tidy
 
-I have abstracted the Twitter consumer_key and consumer_secret values into a config file though
-otherwise a would've accidentally uploaded them to Git!
+I have abstracted the Twitter consumer_key and consumer_secret values into the env_variables section 
+of the app.yaml file though otherwise a would've accidentally uploaded them to Git!
 
 """
 
@@ -14,6 +14,7 @@ import sys
 from datetime import datetime, timedelta
 from hashlib import sha1
 from hmac import new as hmac
+import os
 from os.path import dirname, join as join_path
 from random import getrandbits
 from time import time
@@ -39,8 +40,8 @@ OAUTH_APP_SETTINGS = {
 
     'twitter': {
 
-        'consumer_key': CONSUMER_KEY,
-        'consumer_secret': CONSUMER_SECRET,
+        'consumer_key': os.environ['CONSUMER_KEY'],
+        'consumer_secret': os.environ['CONSUMER_SECRET'],
 
         'request_token_url': 'https://twitter.com/oauth/request_token',
         'access_token_url': 'https://twitter.com/oauth/access_token',
